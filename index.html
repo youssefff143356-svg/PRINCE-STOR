@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر برنس - شحن جميع الألعاب</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Cairo', sans-serif;
+            user-select: none;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #0d0203;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* خلفية التدرج الأحمر الداكن العصري */
+        .bg-dark-red {
+            background: radial-gradient(circle at 50% 20%, #3b0507 0%, #150203 60%, #080102 100%);
+            background-attachment: fixed;
+        }
+
+        /* تأثير التوهج النيون */
+        .neon-glow {
+            text-shadow: 0 0 12px rgba(239, 68, 68, 0.7), 0 0 24px rgba(185, 28, 28, 0.5);
+        }
+
+        /* زجاجية الكروت مع إضاءة حواف حمراء */
+        .card-glass {
+            background: rgba(22, 10, 12, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-glass:hover {
+            border-color: rgba(239, 68, 68, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(185, 28, 28, 0.3);
+        }
+
+        /* أنيميشن الخلفية العائمة */
+        .glow-spot {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            animation: floatGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(30px, -20px) scale(1.1); opacity: 0.5; }
+            100% { transform: translate(-20px, 30px) scale(0.95); opacity: 0.3; }
+        }
+
+        /* أنيميشن نبض للأزرار */
+        .pulse-red {
+            animation: pulse-red-anim 2s infinite;
+        }
+
+        @keyframes pulse-red-anim {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body class="bg-dark-red min-h-screen relative py-8 px-4 flex flex-col items-center justify-start">
+
+    <!-- خلفية مضيئة متناغمة مع اللون الأحمر الداكن -->
+    <div class="glow-spot w-72 h-72 bg-red-800 top-10 left-5"></div>
+    <div class="glow-spot w-80 h-80 bg-red-950 bottom-10 right-5" style="animation-delay: -3s;"></div>
+    <div class="glow-spot w-96 h-96 bg-rose-900 top-1/3 left-1/2 -translate-x-1/2" style="animation-delay: -5s;"></div>
+
+    <!-- زر مشغل القرآن الكريم -->
+    <div class="w-full max-w-md flex justify-end z-20 mb-4">
+        <button id="musicToggle" onclick="toggleMusic()" class="bg-black/70 backdrop-blur-md border border-red-800/50 hover:border-red-500 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg transition-all active:scale-95 cursor-pointer">
+            <i id="musicIcon" class="fa-solid fa-play text-red-500"></i>
+            <span id="musicText">تشغيل القرآن الكريم (KORAN1)</span>
+        </button>
+    </div>
+
+    <!-- ملف الصوت المحلي KORAN1 مع تكرار مستمر loop -->
+    <audio id="bgAudio" preload="auto" loop>
+        <source src="KORAN1.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الملف الصوتي.
+    </audio>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="w-full max-w-md flex flex-col gap-5 z-10">
+
+        <!-- الهيدر واللوجو الرئيسي -->
+        <div class="card-glass rounded-3xl p-6 text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
+            
+            <!-- اللوجو الرئيسي للمتجر -->
+            <div class="relative w-32 h-32 mx-auto mb-4 group">
+                <div class="w-full h-full rounded-full border-2 border-red-600 p-1 bg-black/90 flex items-center justify-center shadow-2xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                    <img src="logo1.jpg" alt="متجر برنس" class="w-full h-full rounded-full object-cover" onerror="this.onerror=null; this.src='logo1.jpg';">
+                </div>
+                <div class="absolute bottom-0 right-1 bg-emerald-500 text-black font-black text-[10px] px-2.5 py-0.5 rounded-full border border-black shadow-md flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-black animate-ping"></span>
+                    متصل الآن
+                </div>
+            </div>
+
+            <!-- اسم المتجر -->
+            <h1 class="text-3xl font-black tracking-wide text-white mb-2 neon-glow">
+                متجر برنس
+            </h1>
+            <p class="text-red-300 text-xs font-bold bg-red-950/80 border border-red-800/50 py-1.5 px-4 rounded-full inline-block mb-3 shadow-inner">
+                🎮 متاح شحن جميع الألعاب 🎮
+            </p>
+            
+            <!-- الدفع العالمي -->
+            <div class="flex items-center justify-center gap-2 text-emerald-400 text-xs font-bold bg-emerald-950/40 border border-emerald-500/30 py-2 px-4 rounded-xl mt-1">
+                <i class="fa-solid fa-globe animate-spin" style="animation-duration: 10s;"></i>
+                <span>متاح دفع من جميع أنحاء العالم 🌍</span>
+            </div>
+        </div>
+
+        <!-- شبكة الألعاب المتاحة -->
+        <div class="card-glass rounded-3xl p-4">
+            <h2 class="text-sm font-extrabold text-gray-200 mb-3 flex items-center gap-2 border-b border-white/10 pb-2">
+                <i class="fa-solid fa-fire text-red-500 animate-pulse"></i>
+                <span>متاح شحن جميع الألعاب</span>
+            </h2>
+
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Free Fire (logo2.jpg)[cite: 5] -->
+                <div class="card-glass rounded-2xl p-2.5 flex flex-col items-center text-center relative group overflow-hidden border border-red-900/30">
+                    <div class="w-full h-24 rounded-xl overflow-hidden relative mb-2 border border-white/10 bg-black flex items-center justify-center">
+                        <img src="logo2.jpg" alt="Free Fire" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='logo2.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-1 right-2 text-[10px] font-black text-amber-400 drop-shadow">🔥 Diamonds</span>
+                    </div>
+                    <span class="font-black text-white text-xs tracking-wide">Free Fire</span>
+                </div>
+
+                <!-- PUBG Mobile (logo5.jpg)[cite: 3] -->
+                <div class="card-glass rounded-2xl p-2.5 flex flex-col items-center text-center relative group overflow-hidden border border-red-900/30">
+                    <div class="w-full h-24 rounded-xl overflow-hidden relative mb-2 border border-white/10 bg-black flex items-center justify-center">
+                        <img src="logo5.jpg" alt="PUBG Mobile" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='logo5.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-1 right-2 text-[10px] font-black text-amber-400 drop-shadow">🎯 UC</span>
+                    </div>
+                    <span class="font-black text-white text-xs tracking-wide">PUBG Mobile</span>
+                </div>
+
+                <!-- Roblox (logo4.jpg)[cite: 2] -->
+                <div class="card-glass rounded-2xl p-2.5 flex flex-col items-center text-center relative group overflow-hidden border border-red-900/30">
+                    <div class="w-full h-24 rounded-xl overflow-hidden relative mb-2 border border-white/10 bg-black flex items-center justify-center">
+                        <img src="logo4.jpg" alt="Roblox" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='logo4.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-1 right-2 text-[10px] font-black text-amber-400 drop-shadow">💎 Robux</span>
+                    </div>
+                    <span class="font-black text-white text-xs tracking-wide">Roblox</span>
+                </div>
+
+                <!-- FIFA / EA FC (logo3.jpg)[cite: 6] -->
+                <div class="card-glass rounded-2xl p-2.5 flex flex-col items-center text-center relative group overflow-hidden border border-red-900/30">
+                    <div class="w-full h-24 rounded-xl overflow-hidden relative mb-2 border border-white/10 bg-black flex items-center justify-center">
+                        <img src="logo3.jpg" alt="EA SPORTS FC" class="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='logo3.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-1 right-2 text-[10px] font-black text-amber-400 drop-shadow">⚽ Coins</span>
+                    </div>
+                    <span class="font-black text-white text-xs tracking-wide">EA SPORTS FC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- جروبات الواتساب -->
+        <div class="card-glass rounded-3xl p-5 border border-emerald-500/30">
+            <h2 class="text-sm font-extrabold text-emerald-400 mb-4 flex items-center gap-2 border-b border-emerald-900/40 pb-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>جروبات الواتساب الرسمية</span>
+            </h2>
+
+            <div class="space-y-2.5">
+                <a href="https://chat.whatsapp.com/IVvjAdLLzySH5nHW527j1N" target="_blank" 
+                   class="flex items-center justify-between bg-black/50 hover:bg-emerald-950/40 border border-emerald-600/30 hover:border-emerald-500 p-3 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </div>
+                        <span class="font-extrabold text-xs text-white">جروب الواتساب (الفرع الأول)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-gray-500 group-hover:text-emerald-400 transition-colors"></i>
+                </a>
+
+                <a href="https://chat.whatsapp.com/HHmo332fIuJDJ90dEIYgWb" target="_blank" 
+                   class="flex items-center justify-between bg-black/50 hover:bg-emerald-950/40 border border-emerald-600/30 hover:border-emerald-500 p-3 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </div>
+                        <span class="font-extrabold text-xs text-white">جروب الواتساب (الفرع الثاني)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-gray-500 group-hover:text-emerald-400 transition-colors"></i>
+                </a>
+
+                <a href="https://chat.whatsapp.com/IpC27JoAjBwJ7HW6Vkhoe2" target="_blank" 
+                   class="flex items-center justify-between bg-black/50 hover:bg-emerald-950/40 border border-emerald-600/30 hover:border-emerald-500 p-3 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </div>
+                        <span class="font-extrabold text-xs text-white">جروب الواتساب (الفرع الثالث)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-gray-500 group-hover:text-emerald-400 transition-colors"></i>
+                </a>
+
+                <a href="https://chat.whatsapp.com/H2b5TDKkk1BFvq9YjCqBKP" target="_blank" 
+                   class="flex items-center justify-between bg-black/50 hover:bg-emerald-950/40 border border-emerald-600/30 hover:border-emerald-500 p-3 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </div>
+                        <span class="font-extrabold text-xs text-white">جروب الواتساب (الفرع الرابع)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-gray-500 group-hover:text-emerald-400 transition-colors"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- أرقام التواصل والتليجرام -->
+        <div class="card-glass rounded-3xl p-5 border border-red-500/30">
+            <h2 class="text-sm font-extrabold text-red-400 mb-4 flex items-center gap-2 border-b border-red-900/40 pb-2">
+                <i class="fa-solid fa-headset text-lg"></i>
+                <span>أرقام التواصل والتليجرام</span>
+            </h2>
+
+            <div class="space-y-2.5">
+                <!-- Telegram -->
+                <a href="https://t.me/prince12346" target="_blank" class="flex items-center justify-between bg-sky-950/30 hover:bg-sky-900/40 border border-sky-500/40 p-3 rounded-2xl transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center">
+                            <i class="fa-brands fa-telegram text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-extrabold text-xs text-white">حساب التليجرام الرسمي</div>
+                            <div class="text-[11px] text-sky-400 font-mono">@prince12346</div>
+                        </div>
+                    </div>
+                    <span class="bg-sky-500/20 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-sky-500/30">تواصل</span>
+                </a>
+
+                <!-- Phone Numbers -->
+                <div class="flex items-center justify-between bg-black/50 border border-white/10 p-3 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-red-500 text-sm"></i>
+                        <span class="font-bold text-xs tracking-wider font-mono dir-ltr">01037290421</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyNumber('01037290421')" class="bg-zinc-800 hover:bg-zinc-700 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all active:scale-95">نسخ</button>
+                        <a href="tel:01037290421" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all">اتصال</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between bg-black/50 border border-white/10 p-3 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-red-500 text-sm"></i>
+                        <span class="font-bold text-xs tracking-wider font-mono dir-ltr">01096779761</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyNumber('01096779761')" class="bg-zinc-800 hover:bg-zinc-700 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all active:scale-95">نسخ</button>
+                        <a href="tel:01096779761" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all">اتصال</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between bg-black/50 border border-white/10 p-3 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-red-500 text-sm"></i>
+                        <span class="font-bold text-xs tracking-wider font-mono dir-ltr">01035500640</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyNumber('01035500640')" class="bg-zinc-800 hover:bg-zinc-700 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all active:scale-95">نسخ</button>
+                        <a href="tel:01035500640" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all">اتصال</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between bg-black/50 border border-white/10 p-3 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-red-500 text-sm"></i>
+                        <span class="font-bold text-xs tracking-wider font-mono dir-ltr">01223505676</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyNumber('01223505676')" class="bg-zinc-800 hover:bg-zinc-700 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all active:scale-95">نسخ</button>
+                        <a href="tel:01223505676" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2.5 py-1 rounded-lg transition-all">اتصال</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- التنبيه بالنسخ -->
+        <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50">
+            تم نسخ الرقم بنجاح!
+        </div>
+
+        <!-- فوتر -->
+        <footer class="text-center text-gray-500 text-xs py-2">
+            جميع الحقوق محفوظة &copy; متجر برنس
+        </footer>
+    </div>
+
+    <script>
+        function copyNumber(num) {
+            const tempInput = document.createElement('input');
+            tempInput.value = num;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const toast = document.getElementById('toast');
+            toast.innerText = 'تم نسخ الرقم بنجاح: ' + num;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById("bgAudio");
+            const icon = document.getElementById("musicIcon");
+            const text = document.getElementById("musicText");
+
+            if (isPlaying) {
+                audio.pause();
+                icon.className = "fa-solid fa-play text-red-500";
+                text.innerText = "تشغيل القرآن الكريم (KORAN1)";
+                isPlaying = false;
+            } else {
+                text.innerText = "جاري التشغيل...";
+                audio.play().then(() => {
+                    icon.className = "fa-solid fa-pause text-emerald-400 animate-pulse";
+                    text.innerText = "إيقاف القرآن الكريم";
+                    isPlaying = true;
+                }).catch(err => {
+                    console.error("Audio playback error:", err);
+                    text.innerText = "تعذر التشغيل، تأكد من وجود الملف";
+                    icon.className = "fa-solid fa-play text-red-500";
+                    isPlaying = false;
+                });
+            }
+        }
+    </script>
+</body>
+</html>
